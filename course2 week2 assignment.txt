@@ -1,0 +1,23 @@
+Question 1
+
+with current directory as C:\Users\carminep\datasciencecoursera\rprog%2Fdata%2Fspecdata\specdata
+
+list.files()
+
+data <- lapply(files, read.csv)
+
+newcompletedata <- do.call("rbind", data)
+
+pollutant_mean <- function(directory, pollutant, ID)
+	{
+	 correctids <- newcompletedata[newcompletedata$ID == ID, ]
+	 
+	 pollutant_column <- if(pollutant == "nitrate")
+		{correctids$nitrate}
+		else
+		{correctids$sulfate}
+	
+	 complete_cases <- complete.cases(pollutant_column)
+	
+	 mean(pollutant_column[complete_cases])
+	} 
