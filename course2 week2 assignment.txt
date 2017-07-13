@@ -4,7 +4,7 @@ with current directory as C:\Users\carminep\datasciencecoursera\rprog%2Fdata%2Fs
 
 list.files()
 
-data <- lapply(files, read.csv)
+data <- lapply(list.files(), read.csv)
 
 newcompletedata <- do.call("rbind", data)
 
@@ -20,4 +20,213 @@ pollutant_mean <- function(directory, pollutant, ID)
 	 complete_cases <- complete.cases(pollutant_column)
 	
 	 mean(pollutant_column[complete_cases])
-	} 
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Question 2
+
+
+with current directory as C:\Users\carminep\datasciencecoursera\rprog%2Fdata%2Fspecdata\specdata
+
+
+filename <- c(list.files())
+
+
+norowscomplete <- function(filename) {
+filedata <- read.csv(filename)
+nrow(filedata[complete.cases(filedata), ])}
+			 
+
+completerowsperfile <-  data.frame(filename, norowscomplete) 
+
+
+
+
+
+norows <- function(ID) {
+		complete_cases <-complete.cases(newcompletedata)
+		nrow(complete_cases[complete_cases$ID == ID])}
+
+
+
+
+		correctids <- newcompletedata[newcompletedata$ID == ID, ]
+		complete_cases <- complete.cases(correctids)
+		nrow(complete_cases)
+		}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+for (i in ID)
+{
+nrow(newcompletedata[newcompletedata$ID == i, ])
+}
+
+
+
+
+
+count <- function(ID) 
++ for (i in ID)
++ {
++ nrow(newcompletedata[newcompletedata$ID == i, ])
++ }
+
+
+
+
+
+data.frame(ID= ID, count = nrow(newcompletedata[newcompletedata$ID == ID, ]))
+
+
+
+
+
+
+
+file <- paste(
+
+
+
+
+
+
+complete
+
+
+
+
+
+
+
+complete <- function(directory, id = 1:332) {
+
+  for(i in id) {
+    file<-sprintf("%03d.csv", ID[i])
+   }
+
+  completedata<-c(id,nobs)
+}
+
+
+
+
+ complete <- function(id) {
+ 
+   for(i in 1:5) {
+     file<-sprintf("%03d.csv", i)
+     mydata<-read.csv(file)
+     nobs<-sum(complete.cases(mydata))
+     i<-i+1
+   }
+ 
+   completedata<-c(id,nobs)
+}
+
+
+
+
+
+
+
+
+for(i in id) {
+file<-sprintf("%03d.csv", i, sep="")
+mydata<-read.csv(file)
+ x <- sum(complete.cases(mydata))
+i<-i+1}
+
+
+
+cc<- data.frame(id, nobs)
+
+complete<-function(directory, id){for (i in id){
+file<-sprintf("%03d.csv", i)
+mydata<-read.csv(file)
+nobs<-sum(complete.cases(mydata))
+cd<-data.frame(id=i,nobs)
+cc<-rbind(cc, cd)
+i<-i+1}}
+
+
+
+
+
+
+complete <- function(directory, id) {
++  
++    for(i in id) {
++      file<-sprintf("%03d.csv", i)
++      mydata<-read.csv(file)
++      nobs<-sum(complete.cases(mydata))
++     
++    }}
+
+
+
+
+
+
+
+
+
+Question 3 
+
+files <-data.frame(id,file,nobs)
+
+
+corr <- function(threshold) {
+
+for (i in 1:332){
+file<-sprintf("%03d.csv", i)
+mydata<-read.csv(file)
+nobs<-sum(complete.cases(mydata))
+fc<-data.frame(id=i,file,nobs)
+files<-rbind(files, fc)
+cc<- read.csv(file)
+cd<- rbind(cc,cd)
+i<-i+1}
+
+
+chosenfiles <- files[files$nobs > threshold, ]
+
+chosenid <-chosenfiles$id
+
+dataset <- cd[cd$id %in% chosenid, ] 
+
+
+cor(dataset$sulfate, dataset$nitrate, use = "complete.obs", method = "pearson")
+
+}
+
+
+
+
+
+
+
+
