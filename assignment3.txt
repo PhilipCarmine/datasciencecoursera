@@ -1,0 +1,156 @@
+
+PART 2
+
+
+
+setwd("C:/Users/carminep/datasciencecoursera/rprog%2Fdata%2FProgAssignment3-data")
+
+state <- "TX"
+
+ocome <- "heart attack"
+
+outcome <- read.csv("outcome-of-care-measures.csv")
+
+best <- function(state, ocome){
+forstate <- outcome[outcome[,7] == state, ] 
+minvalue <- if(ocome == "pneumonia") 
+{minnumber <- min(as.numeric(forstate[,23]), na.rm = TRUE)
+forstate[forstate[,23] == minnumber, ]}
+else 
+if(ocome == "heart attack") 
+{minnumber <- min(as.numeric(forstate[,11]), na.rm = TRUE)
+forstate[forstate[,11] == minnumber, ]}
+else
+if(ocome == "heart failure") 
+{minnumber <- min(as.numeric(forstate[,17]), na.rm = TRUE)
+forstate[forstate[,17] == minnumber, ]}
+final <- minvalue[complete.cases(minvalue[,2]),]
+sort(final[,2], decreasing = FALSE)
+}
+
+
+
+
+PART 3
+
+
+setwd("C:/Users/carminep/datasciencecoursera/rprog%2Fdata%2FProgAssignment3-data")
+
+state <- "TX"
+
+ocome <- "heart attack"
+
+outcome <- read.csv("outcome-of-care-measures.csv")
+
+rankhospital <- function(state, ocome, num){
+forstate <- outcome[outcome[,7] == state, ] 
+listvalues <- if(ocome == "pneumonia") 
+{data.frame(hospital = forstate[,2], rate= forstate[,23])}
+else 
+if(ocome == "heart attack") 
+{data.frame(hospital = forstate[,2], rate= forstate[,11])}
+else
+if(ocome == "heart failure") 
+{data.frame(hospital = forstate[,2], rate= forstate[,17])}
+final <- listvalues[complete.cases(listvalues[,2], listvalues[,1]),]
+rank <- if(num == "best")
+{prerank <- head(final[order(final[,2], final[,1]), ])
+cbind(prerank, rank = 1:6)
+}
+else
+if(num == "worst")
+{prerank <- head(final[order(-final[,2], final[,1]), ])
+cbind(prerank, rank = 1:6)}
+else
+{prerank <- head(final[order(final[,2], final[,1]), ], num)
+cbind(prerank, rank = 1:num)}
+rank
+}
+
+
+
+
+PART 4
+
+
+setwd("C:/Users/carminep/datasciencecoursera/rprog%2Fdata%2FProgAssignment3-data")
+
+outcome <- read.csv("outcome-of-care-measures.csv")
+
+state <- unique(outcome[,7])
+
+ocome <- "heart attack"
+
+
+rankall <- function(ocome, num) {
+
+
+aggtable <- data.frame(hospital=character(), state=character())
+
+
+for (i in state){
+
+
+forstate <- outcome[outcome[,7] == i, ] 
+
+
+
+
+
+listvalues <- if(ocome == "pneumonia") 
+{data.frame(hospital = forstate[,2], rate= forstate[,23])}
+else 
+if(ocome == "heart attack") 
+{data.frame(hospital = forstate[,2], rate= forstate[,11])}
+else
+if(ocome == "heart failure") 
+{data.frame(hospital = forstate[,2], rate= forstate[,17])}
+
+final <- listvalues[complete.cases(listvalues[,2], listvalues[,1]),]
+
+hospital <- if(num == "worst")
+{prerank <- head(final[order(-final[,2], final[,1]), ], 1)
+prerank[,1]}
+else
+if(num == "best")
+{prerank <- head(final[order(final[,2], final[,1]), ], 1)
+prerank[,1]}
+else
+{if(sum(complete.cases(forstate[,2])) < num) {"NA"}
+else
+{prerank <- head(final[order(final[,2], final[,1]), ], num)
+tail(prerank[,1],1)}
+}
+
+
+thisstate <- data.frame(hospital=hospital, state=i)
+
+aggtable <- rbind(aggtable, thisstate)}
+
+aggtable
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
