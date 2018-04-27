@@ -1,0 +1,7 @@
+dataset <- read.table('C:/Users/carminep/datasciencecoursera/ExploritoryDataAnalysis/Week1Assignment/ProjectData/household_power_consumption.txt', header = TRUE, sep = ";")
+
+dataset2 <- subset(dataset, Date == "1/2/2007")
+dataset3 <- subset(dataset, Date == "2/2/2007")
+dataset4 <- rbind(dataset2, dataset3) 
+
+plot(dataset4$Time, dataset4$Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)")
